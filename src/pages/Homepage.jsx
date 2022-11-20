@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 
 const HomePage = () => {
   return (
-    <div className='bg-blackish h-screen w-screen overflow-hidden relative text-white font-sans p-6'>
+    <div className='bg-blackish h-screen w-screen overflow-hidden relative text-white font-sans p-3 md:p-6'>
       <div className='flex justify-between'>
         <div className='flex flex-col items-center'>
           <span className='h-8 w-8 bg-white text-blackish rounded-full flex items-center justify-center'>
