@@ -1,0 +1,21 @@
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.pumping {
+    animation: pump 4s linear infinite;
+}
+
+@keyframes pump {
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.1;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
