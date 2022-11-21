@@ -4,7 +4,6 @@
 
 .pumping {
     animation: pump 4s linear infinite;
-    /* color: #17253b; */
 }
 
 @keyframes pump {
