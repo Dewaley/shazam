@@ -1,21 +1,33 @@
 * {
-    font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 .pumping {
-    animation: pump 4s linear infinite;
+  animation: pump 4s linear infinite;
 }
+/*b:77aeffp:030b0es:341f1dt:1a2b3eq:413c4a*/
+/* .deets {
+  background-image: linear-gradient(
+    to bottom,
+    #77aeff,
+    #030b0e,
+    #341f1d,
+    #1a2b3e,
+    #413c4a
+  );
+  background-blend-mode: screen;
+} */
 
 @keyframes pump {
-    0% {
-        scale: 1;
-    }
+  0% {
+    scale: 1;
+  }
 
-    50% {
-        scale: 1.1;
-    }
+  50% {
+    scale: 1.1;
+  }
 
-    100% {
-        scale: 1;
-    }
+  100% {
+    scale: 1;
+  }
 }

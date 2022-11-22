@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { GiMicrophone } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import SearchServices from "../services/SearchServices";
+import { Link } from "react-router-dom";
 
 const SearchPage = () => {
   const [search, setSearch] = useState("");
@@ -16,7 +17,7 @@ const SearchPage = () => {
   const findSong = () => {
     SearchServices.searchSong(search).then((res) => {
       setResults(res.data);
-      console.log(res.data);
+      console.log(res);
     });
   };
 
@@ -65,7 +66,7 @@ const SearchPage = () => {
             </h2>
             <div className='flex flex-col gap-4'>
               {results.tracks?.hits?.map((song) => (
-                <div className='flex gap-3'>
+                <Link to={`/song-details/${song.track.key}`} className='flex gap-3'>
                   <img
                     src={song.track.images.coverarthq}
                     alt=''
@@ -75,7 +76,7 @@ const SearchPage = () => {
                     <p className='font-medium'>{song.track.title}</p>
                     <p className='font-thin'>{song.track.subtitle}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

@@ -18,8 +18,25 @@ const searchSong = async (data) => {
     });
 };
 
+const songDetails = async (data) => {
+  return axios
+    .get(`https://shazam.p.rapidapi.com/songs/get-details` + `?key=${data}&locale=en-NG`, {
+      headers: {
+        "X-RapidAPI-Key": "3277daaaa6msh3450a8b1d34298ep11cbc8jsn2adb45303b97",
+        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
 const SearchServices = {
-    searchSong,
+  searchSong,
+  songDetails
 };
 
 export default SearchServices;
