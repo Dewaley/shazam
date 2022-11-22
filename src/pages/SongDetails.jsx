@@ -46,7 +46,7 @@ const SongDetails = () => {
             <SlOptionsVertical />
           </div>
         </div>
-        <div className='flex flex-col min-h-screen bg-black/90 p-3 md:p-6 mt-[60vh]'>
+        <div className='absolute flex flex-col min-h-screen bg-black/90 p-3 md:p-6 top-[60vh] left-0 w-full'>
           <h1 className="text-xl font-bold">{result?.title}</h1>
           <p className="font-thin">{result?.subtitle}</p>
         </div>
