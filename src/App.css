@@ -5,6 +5,30 @@
 .pumping {
   animation: pump 4s linear infinite;
 }
+
+.main {
+  background: linear-gradient(to bottom, transparent 0%, black 100%);
+}
+
+.main2 {
+  background: linear-gradient(to bottom, transparent 20%, black 90%);
+}
+
+.main3 {
+  background: linear-gradient(to bottom, transparent 20%, black 90%);
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 /*b:77aeffp:030b0es:341f1dt:1a2b3eq:413c4a*/
 /* .deets {
   background-image: linear-gradient(
