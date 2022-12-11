@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const key = "ae6935bb51msh2cda138fca420bcp15278cjsn6ec432a77862";
+const key = "3277daaaa6msh3450a8b1d34298ep11cbc8jsn2adb45303b97";
 
 const searchSong = async (data) => {
   return axios
