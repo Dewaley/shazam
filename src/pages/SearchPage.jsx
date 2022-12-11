@@ -120,7 +120,7 @@ const SearchPage = () => {
               {results?.artists?.hits
                 ?.slice(0, numRecords)
                 .map((song, index) => (
-                  <div className='flex gap-3 items-center' key={index}>
+                  <Link to={`/artist-details/${song?.artist?.adamid}`} className='flex gap-3 items-center' key={index}>
                     <img
                       src={song?.artist?.avatar}
                       alt=''
@@ -129,7 +129,7 @@ const SearchPage = () => {
                     <div>
                       <p className='font-medium'>{song?.artist?.name}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
             </div>
             <button

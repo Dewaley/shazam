@@ -367,7 +367,7 @@ const SongDetails = () => {
                   </h1>
                   <div className='relative w-full px-3 md:px-6 flex flex-col items-center gap-2 divide-y-[1px] divide-neutral-500'>
                     <div className='flex w-full justify-between items-center text-sm'>
-                      <span className='text-neutral-300'>Track:</span>
+                      <span className='text-neutral-300 pr-2'>Track:</span>
                       <span className='font-bold'>{result?.title}</span>
                     </div>
                     {result?.sections[0]?.metadata?.map((item, index) => (
@@ -375,7 +375,9 @@ const SongDetails = () => {
                         key={index}
                         className='flex w-full justify-between items-center text-sm pt-2'
                       >
-                        <span className='text-neutral-300'>{item?.title}:</span>
+                        <span className='text-neutral-300 pr-2'>
+                          {item?.title}:
+                        </span>
                         <span className='font-bold'>{item?.text}</span>
                       </div>
                     ))}

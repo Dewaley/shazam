@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://shazam.p.rapidapi.com/search";
-
-const key = "d9c19dada5msh962a0ae15169b85p17a877jsn7c9aff617f5c";
+const key = "ae6935bb51msh2cda138fca420bcp15278cjsn6ec432a77862";
 
 const searchSong = async (data) => {
   return axios
@@ -157,6 +155,25 @@ const fetchArtist = async (data) => {
     });
 };
 
+const fetchConcerts = async ({ id, data }) => {
+  return axios
+    .get(
+      `https://shazam-core.p.rapidapi.com/v1/events/list?artist_id=${id}&date_from=${data}&page_number=1`,
+      {
+        headers: {
+          "X-RapidAPI-Key": key,
+          "X-RapidAPI-Host": "shazam-core.p.rapidapi.com",
+        },
+      }
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+}
+
 const SearchServices = {
   searchSong,
   songDetails,
@@ -166,6 +183,7 @@ const SearchServices = {
   fetchYT,
   related,
   fetchArtist,
+  fetchConcerts
 };
 
 export default SearchServices;

@@ -46,20 +46,6 @@ const HomePage = () => {
 
   return (
     <div className='bg-blackish min-h-screen min-w-screen overflow-hidden relative text-white font-sans p-3 md:p-6'>
-      <div className='flex justify-between'>
-        <div className='flex flex-col items-center'>
-          <span className='h-8 w-8 bg-white text-blackish rounded-full flex items-center justify-center'>
-            <BsMusicNoteList />
-          </span>
-          <p>Library</p>
-        </div>
-        <div className='flex flex-col items-center'>
-          <span className='h-8 w-8 bg-white text-blackish rounded-full flex items-center justify-center'>
-            <MdShowChart />
-          </span>
-          <p>Charts</p>
-        </div>
-      </div>
       <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col items-center gap-16'>
         <h1 className='text-xl'>{message}</h1>
         <div
