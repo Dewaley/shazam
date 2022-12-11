@@ -3,11 +3,15 @@
 }
 
 .pumping {
-  animation: pump 4s linear infinite;
+  animation: pump 4s infinite;
+}
+
+.pumping2 {
+  animation: pumped 2s linear infinite;
 }
 
 .main {
-  background: linear-gradient(to bottom, transparent 0%, black 100%);
+  background: linear-gradient(to bottom, transparent 0%, black 40%);
 }
 
 .main2 {
@@ -16,6 +20,14 @@
 
 .main3 {
   background: linear-gradient(to bottom, transparent 20%, black 90%);
+}
+
+.topSongs {
+  background: linear-gradient(to bottom, transparent 0%, black 8%);
+}
+
+.lyrics {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, black 60%);
 }
 
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -49,6 +61,20 @@
 
   50% {
     scale: 1.1;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes pumped {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.3;
   }
 
   100% {
