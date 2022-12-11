@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 const SearchPage = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState({});
+  const [numRecords, setNumRecords] = useState(5);
+  const [records, setRecords] = useState(5);
 
   const navigate = useNavigate();
 
@@ -18,6 +20,8 @@ const SearchPage = () => {
     SearchServices.searchSong(search).then((res) => {
       setResults(res.data);
       console.log(res);
+      setNumRecords(5)
+      setRecords(5)
     });
   };
 
@@ -58,46 +62,100 @@ const SearchPage = () => {
           />
         </form>
       </div>
-      {results.artists || results.track ? (
+      {results?.artists || results?.tracks ? (
         <div>
           <div className='pt-6 flex flex-col gap-5'>
             <h2 className='text-xl w-full border-b-[0.2px] border-b-[#17253b] py-2'>
               Songs
             </h2>
             <div className='flex flex-col gap-4'>
-              {results.tracks?.hits?.map((song) => (
-                <Link to={`/song-details/${song.track.key}`} className='flex gap-3'>
+              {results?.tracks?.hits?.slice(0, records).map((song, index) => (
+                <Link
+                  to={`/song-details/${song?.track?.key}`}
+                  className='flex gap-3'
+                  key={index}
+                >
                   <img
-                    src={song.track.images.coverarthq}
+                    src={song?.track?.images?.coverarthq}
                     alt=''
                     className='w-24 h-24 rounded object-cover object-center'
                   />
                   <div>
-                    <p className='font-medium'>{song.track.title}</p>
-                    <p className='font-thin'>{song.track.subtitle}</p>
+                    <p className='font-medium'>{song?.track?.title}</p>
+                    <p className='font-thin'>{song?.track?.subtitle}</p>
                   </div>
                 </Link>
               ))}
             </div>
+            <button
+              className={`text-blue-800 font-bold ${
+                (results?.tracks?.hits?.length <= 5 ||
+                  records === results?.track?.hits?.length) &&
+                "hidden"
+              }`}
+              onClick={(e) => {
+                setRecords(results?.track?.hits?.length);
+              }}
+            >
+              View more
+            </button>
+            <button
+              className={`hidden text-blue-800 font-bold ${
+                (results?.track?.hits?.length <= 5 ||
+                  records === results?.track?.hits?.length) &&
+                "!block"
+              }`}
+              onClick={(e) => {
+                setRecords(5);
+              }}
+            >
+              View less
+            </button>
           </div>
           <div className='pt-6 flex flex-col gap-5'>
             <h2 className='text-xl w-full border-b-[0.2px] border-b-[#17253b] py-2'>
               Artists
             </h2>
             <div className='flex flex-col gap-4'>
-              {results.artists?.hits?.map((song) => (
-                <div className='flex gap-3'>
-                  <img
-                    src={song.artist.avatar}
-                    alt=''
-                    className='w-24 h-24 rounded object-cover object-center'
-                  />
-                  <div>
-                    <p className='font-medium'>{song.artist.name}</p>
+              {results?.artists?.hits
+                ?.slice(0, numRecords)
+                .map((song, index) => (
+                  <div className='flex gap-3 items-center' key={index}>
+                    <img
+                      src={song?.artist?.avatar}
+                      alt=''
+                      className='w-24 h-24 rounded-full object-cover object-center'
+                    />
+                    <div>
+                      <p className='font-medium'>{song?.artist?.name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
+            <button
+              className={`text-blue-800 font-bold ${
+                (results?.artists?.hits.length <= 5 ||
+                  numRecords === results?.artists?.hits.length) &&
+                "hidden"
+              }`}
+              onClick={(e) => {
+                setNumRecords(results?.artists?.hits.length);
+              }}
+            >
+              View more
+            </button>
+            <button
+              className={`hidden text-blue-800 font-bold ${
+                (results?.artists?.hits.length <= 5 ||
+                  numRecords === results?.artists?.hits.length) &&
+                "!block"
+              }`}
+              onClick={(e) => {
+                setNumRecords(5);
+              }}
+            >
+              View less
+            </button>
           </div>
         </div>
       ) : (

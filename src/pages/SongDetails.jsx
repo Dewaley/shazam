@@ -84,23 +84,31 @@ const SongDetails = () => {
           console.log(res);
           setYT(res?.data);
         });
-      },1000)
+      }, 1000);
       SearchServices.related(id).then((res) => {
         console.log(res);
         setRecommendations(res?.data);
       });
-      SearchServices.fetchArtist(res?.data?.artists[0]?.adamid).then(res=> {
-        console.log(res?.data?.data[0]?.views["top-songs"].data)
-        setTopSongs(res?.data?.data[0]?.views["top-songs"].data)
-      })
+      SearchServices.fetchArtist(res?.data?.artists[0]?.adamid).then((res) => {
+        console.log(res?.data?.data[0]?.views["top-songs"].data);
+        setTopSongs(res?.data?.data[0]?.views["top-songs"].data);
+      });
       setResult(res?.data);
     });
-
-    // SearchServices.topSongs(id).then((res) => {
-    //   console.log(res.data.tracks);
-    //   setTopSongs(res.data.tracks);
-    // });
   }, [id]);
+
+  const share = async (item) => {
+    if (navigator.canShare) {
+      try {
+        await navigator.share({
+          title: item?.share?.text,
+          url: item?.share?.href,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <div>
@@ -208,7 +216,7 @@ const SongDetails = () => {
                     src={result?.hub?.actions[1]?.uri}
                     controls
                     ref={audioRef}
-                    className="hidden"
+                    className='hidden'
                   ></audio>
                   <p className='text-sm font-bold'>
                     Get up to 1 month free of apple music
@@ -219,47 +227,54 @@ const SongDetails = () => {
                     Top songs
                   </h1>
                   <div className='grid grid-rows-3 grid-flow-col gap-6 p-3 md:p-6 overflow-x-scroll scrollbar-hide'>
-                {topSongs.length > 1 && topSongs?.map((song, index) => (
-                  <div className='flex gap-3 w-[80vw] md:w-[400px]' key={index}>
-                    <Link to={`/song-details/${song.id}`} className='w-[50%]'>
-                      <img
-                        src={song?.attributes?.artwork?.url}
-                        alt=''
-                        className='w-full h-full rounded object-cover object-center'
-                      />
-                    </Link>
-                    <div className='flex flex-col justify-between w-[50%] justify-between gap-3'>
-                      <div>
-                        <Link
-                          to={`/song-details/${song?.id}`}
-                          className='w-fit'
+                    {topSongs.length > 1 &&
+                      topSongs?.map((song, index) => (
+                        <div
+                          className='flex gap-3 w-[80vw] md:w-[400px]'
+                          key={index}
                         >
-                          <p className='font-medium w-fit'>
-                            {formatText(song?.attributes?.name)}
-                          </p>
-                        </Link>
-                        <Link
-                          to={`/song-details/${song?.id}`}
-                          className='w-fit'
-                        >
-                          <p className='font-thin w-fit'>
-                            {formatText(song?.attributes?.artistName)}
-                          </p>
-                        </Link>
-                      </div>
-                      <a
-                        href={song?.attributes?.uri}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='bg-[#4D565A] text-white py-1 px-2 w-fit gap-1 rounded-full flex items-center'
-                      >
-                        <BsApple />
-                        Music
-                      </a>
-                    </div>
+                          <Link
+                            to={`/song-details/${song.id}`}
+                            className='w-[50%]'
+                          >
+                            <img
+                              src={song?.attributes?.artwork?.url}
+                              alt=''
+                              className='w-full h-full rounded object-cover object-center'
+                            />
+                          </Link>
+                          <div className='flex flex-col justify-between w-[50%] justify-between gap-3'>
+                            <div>
+                              <Link
+                                to={`/song-details/${song?.id}`}
+                                className='w-fit'
+                              >
+                                <p className='font-medium w-fit'>
+                                  {formatText(song?.attributes?.name)}
+                                </p>
+                              </Link>
+                              <Link
+                                to={`/song-details/${song?.id}`}
+                                className='w-fit'
+                              >
+                                <p className='font-thin w-fit'>
+                                  {formatText(song?.attributes?.artistName)}
+                                </p>
+                              </Link>
+                            </div>
+                            <a
+                              href={song?.attributes?.uri}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className='bg-[#4D565A] text-white py-1 px-2 w-fit gap-1 rounded-full flex items-center'
+                            >
+                              <BsApple />
+                              Music
+                            </a>
+                          </div>
+                        </div>
+                      ))}
                   </div>
-                ))}
-              </div>
                 </div>
                 {yt?.caption && (
                   <div className='flex flex-col w-full gap-3 bg-[#4D565A]/[.90] py-9 md:py-12 mb-6'>
@@ -291,57 +306,59 @@ const SongDetails = () => {
                     You might also like
                   </h1>
                   <div className='grid grid-rows-1 grid-flow-col gap-6 p-3 md:p-6 overflow-x-scroll scrollbar-hide'>
-                    {recommendations?.length > 0 && recommendations?.filter((object) => object?.images?.coverarthq)
-                      .map((song, index) => (
-                        <div
-                          className='flex flex-col gap-3 w-[45vw] md:w-[400px]'
-                          key={index}
-                        >
-                          <Link
-                            to={`/song-details/${song.key}`}
-                            className='w-full'
+                    {recommendations?.length > 0 &&
+                      recommendations
+                        ?.filter((object) => object?.images?.coverarthq)
+                        .map((song, index) => (
+                          <div
+                            className='flex flex-col gap-3 w-[45vw] md:w-[400px]'
+                            key={index}
                           >
-                            {song.images ? (
-                              <img
-                                src={song.images.coverarthq}
-                                alt=''
-                                className='w-full h-full rounded object-cover object-center'
-                              />
-                            ) : (
-                              <div className='w-full h-full bg-red-900 rounded'></div>
-                            )}
-                          </Link>
-                          <div className='flex flex-col justify-between w-[70%] gap-3 h-full'>
-                            <div>
-                              <Link
-                                to={`/song-details/${song?.key}`}
-                                className='w-fit'
-                              >
-                                <p className='font-medium w-fit'>
-                                  {formatText(song?.title)}
-                                </p>
-                              </Link>
-                              <Link
-                                to={`/song-details/${song.key}`}
-                                className='w-fit'
-                              >
-                                <p className='font-thin w-fit'>
-                                  {formatText(song?.subtitle)}
-                                </p>
-                              </Link>
-                            </div>
-                            <a
-                              href={song.hub.options[0].actions[1].uri}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='bg-[#4D565A] text-white py-1 px-2 w-fit gap-1 rounded-full flex items-center'
+                            <Link
+                              to={`/song-details/${song.key}`}
+                              className='w-full'
                             >
-                              <BsApple />
-                              Music
-                            </a>
+                              {song.images ? (
+                                <img
+                                  src={song.images.coverarthq}
+                                  alt=''
+                                  className='w-full h-full rounded object-cover object-center'
+                                />
+                              ) : (
+                                <div className='w-full h-full bg-red-900 rounded'></div>
+                              )}
+                            </Link>
+                            <div className='flex flex-col justify-between w-[70%] gap-3 h-full'>
+                              <div>
+                                <Link
+                                  to={`/song-details/${song?.key}`}
+                                  className='w-fit'
+                                >
+                                  <p className='font-medium w-fit'>
+                                    {formatText(song?.title)}
+                                  </p>
+                                </Link>
+                                <Link
+                                  to={`/song-details/${song.key}`}
+                                  className='w-fit'
+                                >
+                                  <p className='font-thin w-fit'>
+                                    {formatText(song?.subtitle)}
+                                  </p>
+                                </Link>
+                              </div>
+                              <a
+                                href={song.hub.options[0].actions[1].uri}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                className='bg-[#4D565A] text-white py-1 px-2 w-fit gap-1 rounded-full flex items-center'
+                              >
+                                <BsApple />
+                                Music
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                   </div>
                 </div>
                 <div className='py-9 md:py-12 mb-6 bg-[#4D565A]/[.15] flex flex-col w-full gap-3'>
@@ -364,7 +381,12 @@ const SongDetails = () => {
                     ))}
                   </div>
                 </div>
-                <button className='text-white font-bold text-sm p-3 rounded w-[90%] max-w-[400px] bg-blue-700 mb-12'>
+                <button
+                  className='text-white font-bold text-sm p-3 rounded w-[90%] max-w-[400px] bg-blue-700 mb-12 md:hidden'
+                  onClick={() => {
+                    share(result);
+                  }}
+                >
                   Share song
                 </button>
               </div>

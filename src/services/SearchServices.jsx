@@ -6,12 +6,15 @@ const key = "d9c19dada5msh962a0ae15169b85p17a877jsn7c9aff617f5c";
 
 const searchSong = async (data) => {
   return axios
-    .get(API_URL + `?term=${data}&limit=10&locale=en-NG`, {
-      headers: {
-        "X-RapidAPI-Key": key,
-        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
-      },
-    })
+    .get(
+      `https://shazam-core.p.rapidapi.com/v1/search/multi?search_type=SONGS_ARTISTS&query=${data}`,
+      {
+        headers: {
+          "X-RapidAPI-Key": key,
+          "X-RapidAPI-Host": "shazam-core.p.rapidapi.com",
+        },
+      }
+    )
     .then((response) => {
       return response;
     })

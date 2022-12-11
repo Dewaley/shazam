@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
   const { status, startRecording, stopRecording, getBlob } =
     useReactMediaRecorder({
       audio: true,
@@ -26,10 +27,22 @@ const HomePage = () => {
 
         SearchServices.songDetect(formData).then((res) => {
           console.log(res.data?.matches[0]?.id);
-          navigate(`/song-details/${res.data?.matches[0]?.id}`);
+          if (res.data?.matches[0]?.id === undefined) {
+            setTimeout(()=>setMessage("Couldn't find a match"),1000)
+          } else {
+            navigate(`/song-details/${res.data?.matches[0]?.id}`);
+          }
         });
       },
     });
+
+  useEffect(() => {
+    if (status === "recording") {
+      setMessage("Listening");
+    } else {
+      setMessage("Tap to Shazam");
+    }
+  }, [status]);
 
   return (
     <div className='bg-blackish min-h-screen min-w-screen overflow-hidden relative text-white font-sans p-3 md:p-6'>
@@ -48,8 +61,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col items-center gap-16'>
-        <p>{status}</p>
-        <h1 className='text-xl'>Tap to Shazam</h1>
+        <h1 className='text-xl'>{message}</h1>
         <div
           className={`relative bg-white w-40 h-40 rounded-full flex justify-center items-center ${
             status !== "recording" ? "pumping" : "pumping2"
