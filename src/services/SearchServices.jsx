@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const key = "3277daaaa6msh3450a8b1d34298ep11cbc8jsn2adb45303b97";
+const key = "3a37b77324mshc1d67db245e0a1ap1cb0f5jsn9780d7f6d0af";
 
 const searchSong = async (data) => {
   return axios
@@ -172,7 +172,7 @@ const fetchConcerts = async ({ id, data }) => {
     .catch((error) => {
       return error.response;
     });
-}
+};
 
 const SearchServices = {
   searchSong,
@@ -183,7 +183,7 @@ const SearchServices = {
   fetchYT,
   related,
   fetchArtist,
-  fetchConcerts
+  fetchConcerts,
 };
 
 export default SearchServices;
