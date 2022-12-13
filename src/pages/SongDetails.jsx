@@ -78,10 +78,12 @@ const SongDetails = () => {
           setShazams(res?.data?.total);
         })
         .then(() =>
-          SearchServices.related(id).then((res) => {
-            console.log(res);
-            setRecommendations(res?.data);
-          })
+          setTimeout(() => {
+            SearchServices.related(id).then((res) => {
+              console.log(res);
+              setRecommendations(res?.data);
+            });
+          }, 1500)
         );
       setTimeout(() => {
         SearchServices.fetchYT({
