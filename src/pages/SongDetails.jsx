@@ -72,10 +72,17 @@ const SongDetails = () => {
   useEffect(() => {
     SearchServices.songDetails(id).then((res) => {
       console.log(res);
-      SearchServices.shazamCount(id).then((res) => {
-        console.log(res);
-        setShazams(res?.data?.total);
-      });
+      SearchServices.shazamCount(id)
+        .then((res) => {
+          console.log(res);
+          setShazams(res?.data?.total);
+        })
+        .then(() =>
+          SearchServices.related(id).then((res) => {
+            console.log(res);
+            setRecommendations(res?.data);
+          })
+        );
       setTimeout(() => {
         SearchServices.fetchYT({
           id: id,
@@ -84,11 +91,7 @@ const SongDetails = () => {
           console.log(res);
           setYT(res?.data);
         });
-      }, 1000);
-      SearchServices.related(id).then((res) => {
-        console.log(res);
-        setRecommendations(res?.data);
-      });
+      }, 1500);
       SearchServices.fetchArtist(res?.data?.artists[0]?.adamid).then((res) => {
         console.log(res?.data?.data[0]?.views["top-songs"].data);
         setTopSongs(res?.data?.data[0]?.views["top-songs"].data);
