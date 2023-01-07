@@ -10,6 +10,8 @@ import {
 } from "react-media-recorder";
 import SearchServices from "../services/SearchServices";
 import { useNavigate } from "react-router-dom";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg
+
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -24,15 +26,17 @@ const HomePage = () => {
         // Create a FormData object containing the recorded audio data
         const formData = new FormData();
         formData.append("file", blob, `${blobUrl.substring(22)} + ".wav"`);
+        console.log("blob url",blobUrl)
+        console.log(blob)
 
-        SearchServices.songDetect(formData).then((res) => {
-          console.log(res.data?.matches[0]?.id);
-          if (res.data?.matches[0]?.id === undefined) {
-            setTimeout(()=>setMessage("Couldn't find a match"),1000)
-          } else {
-            navigate(`/song-details/${res.data?.matches[0]?.id}`);
-          }
-        });
+        // SearchServices.songDetect(formData).then((res) => {
+        //   console.log(res.data?.matches[0]?.id);
+        //   if (res.data?.matches[0]?.id === undefined) {
+        //     setTimeout(()=>setMessage("Couldn't find a match"),1000)
+        //   } else {
+        //     navigate(`/song-details/${res.data?.matches[0]?.id}`);
+        //   }
+        // });
       },
     });
 
